@@ -12,8 +12,7 @@
 		"test": "jest --passWithNoTests",
 		"test:coverage": "jest --passWithNoTests --coverage=true --coverage-reporters=text",
 		"test:ci": "jest --config ./jest.config.js --collectCoverage --coverageDirectory=\"./coverage\" --ci --reporters=default --reporters=jest-junit --watchAll=false",
-		"prepare": "husky install",
-		"postinstall": "husky install",
+		"prepare": "husky",
 		"prepublishOnly": "npm ci && npm run lint && npm run build"
 	},
 	"repository": {

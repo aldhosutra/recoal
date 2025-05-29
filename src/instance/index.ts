@@ -69,7 +69,7 @@ export class RecoalInstance {
 		const functionName = fn.name || 'anonymous';
 		const key = this._createKey(functionName, ...args);
 
-		if (!this._interval) this._interval = setInterval(this._pruneCaches, this._pruneIntervalMs);
+		if (!this._interval) this._interval = setInterval(this._prune, this._pruneIntervalMs);
 
 		const now = Date.now();
 
@@ -150,7 +150,7 @@ export class RecoalInstance {
 	 * Periodically prunes expired cache entries.
 	 * @private
 	 */
-	private _pruneCaches(): void {
+	private _prune(): void {
 		const now = Date.now();
 		// Prune result cache
 		for (const [key, { timestamp }] of this._resultCache.entries()) {
@@ -160,5 +160,30 @@ export class RecoalInstance {
 		}
 		// Note: in-flight entries are cleaned up on resolution
 		this._console.trace('[requestCoalescing] Pruned caches');
+	}
+
+	/**
+	 * Manually invalidate the cache for a specific function and arguments.
+	 * @param fn The async function whose cache should be invalidated.
+	 * @param args Arguments to the function.
+	 */
+	public invalidate<Args extends unknown[]>(
+		fn: (...args: Args) => Promise<unknown>,
+		...args: Args
+	): void {
+		const functionName = fn.name || 'anonymous';
+		const key = this._createKey(functionName, ...args);
+		this._resultCache.delete(key);
+		this._inFlightRequests.delete(key);
+		this._console.trace(`[requestCoalescing] Invalidated cache and in-flight for key: ${key}`);
+	}
+
+	/**
+	 * Clear all cached results and in-flight requests in this instance.
+	 */
+	public clear(): void {
+		this._resultCache.clear();
+		this._inFlightRequests.clear();
+		this._console.trace('[requestCoalescing] Cleared all cache and in-flight requests');
 	}
 }

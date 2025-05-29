@@ -44,3 +44,15 @@ export const coalesce = globalCoalescer.coalesce.bind(globalCoalescer);
  * @see RecoalInstance#isCoalesced
  */
 export const isCoalesced = globalCoalescer.isCoalesced.bind(globalCoalescer);
+
+/**
+ * Manually invalidate the cache for a specific function and arguments.
+ * @param fn The async function whose cache should be invalidated.
+ * @param args Arguments to the function.
+ */
+export const invalidate = globalCoalescer.invalidate.bind(globalCoalescer);
+
+/**
+ * Clear all cached results and in-flight requests in the global instance.
+ */
+export const clear = globalCoalescer.clear.bind(globalCoalescer);

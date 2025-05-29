@@ -1,5 +1,5 @@
 import * as stringify from 'json-stable-stringify';
-import { DEFAULT_PRUNE_INTERVAL_MS, DEFAULT_TTL_MS } from './default';
+import { DEFAULT_PRUNE_INTERVAL_MS, DEFAULT_TTL_MS, DEFAULT_CONCURRENCY_LIMIT } from './default';
 
 type CacheEntry<T> = {
 	/** The cached result value. */
@@ -27,27 +27,32 @@ type CacheEntry<T> = {
  * @param {Console} [consoler=console] - Optional custom console for logging.
  */
 export class RecoalInstance {
-	private _pruneIntervalMs: number = 0;
+	private _pruneIntervalMs: number = DEFAULT_PRUNE_INTERVAL_MS;
+	private _ttlMs: number = DEFAULT_TTL_MS;
+	private _maxConcurrency: number = DEFAULT_CONCURRENCY_LIMIT;
+	private _console: Console = console;
 	private _interval: NodeJS.Timeout | null = null;
 	private _resultCache: Map<string, CacheEntry<unknown>> = new Map();
 	private _inFlightRequests: Map<string, Promise<unknown>> = new Map();
-	private _console: Console;
-	private _ttlMs: number = 0;
+	private _currentConcurrency: number = 0;
 
 	/**
 	 * Create a new RecoalInstance.
 	 * @param intervalMs Interval (ms) for pruning expired cache entries.
 	 * @param ttlMs Time-to-live (ms) for cached results.
 	 * @param consoler Optional custom console for logging.
+	 * @param maxConcurrency Maximum number of concurrent in-flight requests.
 	 */
 	constructor(
 		intervalMs: number = DEFAULT_PRUNE_INTERVAL_MS,
 		ttlMs: number = DEFAULT_TTL_MS,
 		consoler: Console = console,
+		maxConcurrency: number = DEFAULT_CONCURRENCY_LIMIT,
 	) {
 		this._console = consoler;
 		this._pruneIntervalMs = intervalMs;
 		this._ttlMs = ttlMs;
+		this._maxConcurrency = maxConcurrency;
 	}
 
 	/**
@@ -86,7 +91,16 @@ export class RecoalInstance {
 			return Promise.resolve(cacheEntry.result);
 		}
 
-		// 3. Otherwise, start a new request
+		// 3. Enforce concurrency limit
+		if (this._currentConcurrency >= this._maxConcurrency) {
+			this._console.warn(
+				`[requestCoalescing] Max concurrency (${this._maxConcurrency}) reached. Rejecting request for key: ${key}`,
+			);
+			return Promise.reject(new Error('Max concurrency reached'));
+		}
+
+		this._currentConcurrency++;
+
 		const promise = (async () => {
 			try {
 				const result = await fn(...args);
@@ -104,6 +118,7 @@ export class RecoalInstance {
 				throw err;
 			} finally {
 				this._inFlightRequests.delete(key);
+				this._currentConcurrency--;
 				this._console.trace(`[requestCoalescing] Cleared in-flight request for key: ${key}`);
 			}
 		})();

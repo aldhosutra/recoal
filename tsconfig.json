@@ -20,11 +20,7 @@
 		"noImplicitAny": false,
 		"skipLibCheck": true,
 		"rootDir": "./src",
-		"outDir": "./dist",
-		"baseUrl": ".",
-		"paths": {
-			"@dist/*": ["src/*"]
-		}
+		"outDir": "./dist"
 	},
 	"include": ["./src/**/*.ts", "./src/*.ts"]
 }

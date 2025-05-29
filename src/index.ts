@@ -62,3 +62,9 @@ export const clear = globalCoalescer.clear.bind(globalCoalescer);
  * Most users do not need to call this, as pruning is automatic.
  */
 export const prune = globalCoalescer.prune.bind(globalCoalescer);
+
+/**
+ * Set a custom key generator for the global instance.
+ * @param keyGen A function that generates a cache key from the function and arguments.
+ */
+export const setKeyGenerator = globalCoalescer.setKeyGenerator.bind(globalCoalescer);

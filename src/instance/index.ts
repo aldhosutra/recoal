@@ -35,6 +35,7 @@ export class RecoalInstance {
 	private _resultCache: Map<string, CacheEntry<unknown>> = new Map();
 	private _inFlightRequests: Map<string, Promise<unknown>> = new Map();
 	private _currentConcurrency: number = 0;
+	private _customKeyGen?: (functionName: string, ...args: unknown[]) => string;
 
 	/**
 	 * Create a new RecoalInstance.
@@ -151,14 +152,11 @@ export class RecoalInstance {
 	}
 
 	/**
-	 * Generates a unique cache key based on function name and arguments.
-	 * @param functionName The name of the function.
-	 * @param args Arguments to the function.
-	 * @returns A string key.
-	 * @private
+	 * Set a custom key generator for this instance.
+	 * @param keyGen A function that generates a cache key from the function name and arguments.
 	 */
-	private _createKey(functionName: string, ...args: unknown[]): string {
-		return `${functionName}|${stringify(args)}`;
+	public setKeyGenerator(keyGen: (functionName: string, ...args: unknown[]) => string): void {
+		this._customKeyGen = keyGen;
 	}
 
 	/**
@@ -199,5 +197,22 @@ export class RecoalInstance {
 		this._resultCache.clear();
 		this._inFlightRequests.clear();
 		this._console.trace('[requestCoalescing] Cleared all cache and in-flight requests');
+	}
+
+	/**
+	 * Generates a unique cache key based on function name and arguments.
+	 * If a custom key generator is set via setKeyGenerator, it will be used.
+	 * Otherwise, the default is `${functionName}|${stringify(args)}`.
+	 *
+	 * @param functionName The name of the function.
+	 * @param args Arguments to the function.
+	 * @returns A string key for caching and coalescing.
+	 * @private
+	 */
+	private _createKey(functionName: string, ...args: unknown[]): string {
+		if (this._customKeyGen) {
+			return this._customKeyGen(functionName, ...args);
+		}
+		return `${functionName}|${stringify(args)}`;
 	}
 }

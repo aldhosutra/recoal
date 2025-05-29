@@ -56,3 +56,9 @@ export const invalidate = globalCoalescer.invalidate.bind(globalCoalescer);
  * Clear all cached results and in-flight requests in the global instance.
  */
 export const clear = globalCoalescer.clear.bind(globalCoalescer);
+
+/**
+ * Manually prune expired cache entries in the global instance.
+ * Most users do not need to call this, as pruning is automatic.
+ */
+export const prune = globalCoalescer.prune.bind(globalCoalescer);

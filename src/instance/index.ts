@@ -74,7 +74,7 @@ export class RecoalInstance {
 		const functionName = fn.name || 'anonymous';
 		const key = this._createKey(functionName, ...args);
 
-		if (!this._interval) this._interval = setInterval(this._prune, this._pruneIntervalMs);
+		if (!this._interval) this._interval = setInterval(this.prune, this._pruneIntervalMs);
 
 		const now = Date.now();
 
@@ -162,10 +162,9 @@ export class RecoalInstance {
 	}
 
 	/**
-	 * Periodically prunes expired cache entries.
-	 * @private
+	 * Manually prune expired cache entries. Most users do not need to call this, as pruning is automatic.
 	 */
-	private _prune(): void {
+	public prune(): void {
 		const now = Date.now();
 		// Prune result cache
 		for (const [key, { timestamp }] of this._resultCache.entries()) {

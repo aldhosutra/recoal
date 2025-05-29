@@ -61,15 +61,16 @@ export class RecoalInstance {
 	 * If an in-flight promise exists, returns it.
 	 * If a cached result exists within TTL, returns it.
 	 * Otherwise, calls the function, caches the result, and returns it.
+	 * Supports both async and sync functions.
 	 *
 	 * @template T
 	 * @template Args
-	 * @param fn The async function to call.
+	 * @param fn The function to call (can be sync or async).
 	 * @param args Arguments to pass to the function.
 	 * @returns The result of the function, possibly from cache or in-flight request.
 	 */
 	public async coalesce<T, Args extends unknown[]>(
-		fn: (...args: Args) => Promise<T>,
+		fn: (...args: Args) => T | Promise<T>,
 		...args: Args
 	): Promise<T> {
 		const functionName = fn.name || 'anonymous';
@@ -104,7 +105,8 @@ export class RecoalInstance {
 
 		const promise = (async () => {
 			try {
-				const result = await fn(...args);
+				// Support both sync and async functions
+				const result = await Promise.resolve(fn(...args));
 				this._resultCache.set(key, { result, timestamp: Date.now() });
 				setTimeout(() => {
 					const entry = this._resultCache.get(key);

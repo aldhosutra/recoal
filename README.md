@@ -2,8 +2,6 @@
 
 A lightweight and efficient JavaScript/TypeScript library for request coalescing — merge concurrent identical async calls into a single request to reduce load and improve performance.
 
----
-
 ## Features
 
 - Coalesce concurrent or repeated calls for the same function and arguments
@@ -16,15 +14,11 @@ A lightweight and efficient JavaScript/TypeScript library for request coalescing
 - ESM & CJS compatible
 - TypeScript-first, with full type safety
 
----
-
 ## Installation
 
 ```sh
 npm install recoal
 ```
-
----
 
 ## Usage
 
@@ -77,8 +71,6 @@ await coalescer.coalesce(fetchUser, 123);
 coalescer.setKeyGenerator((functionName, ...args) => `${functionName}:${args.join('-')}`);
 ```
 
----
-
 ## API
 
 ### Global Exports
@@ -100,14 +92,10 @@ coalescer.setKeyGenerator((functionName, ...args) => `${functionName}:${args.joi
 - `.prune()`
 - `.setKeyGenerator(fn)`
 
----
-
 ## ESM & CJS Compatibility
 
 - ESM: `import { coalesce } from 'recoal'`
 - CJS: `const { coalesce } = require('recoal')`
-
----
 
 ## License
 

@@ -2,7 +2,8 @@
 	"compilerOptions": {
 		"forceConsistentCasingInFileNames": true,
 		"target": "es2019",
-		"module": "commonjs",
+		"module": "ESNext",
+		"esModuleInterop": true,
 		"moduleResolution": "node",
 		"newLine": "lf",
 		"importHelpers": true,
@@ -15,12 +16,11 @@
 		"resolveJsonModule": true,
 		"sourceMap": true,
 		"strict": true,
-		"composite": true,
 		"declaration": true,
 		"noImplicitAny": false,
 		"skipLibCheck": true,
 		"rootDir": "./src",
 		"outDir": "./dist"
 	},
-	"include": ["./src/**/*.ts", "./src/*.ts"]
+	"include": ["src/**/*"]
 }

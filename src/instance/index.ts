@@ -1,4 +1,4 @@
-import * as stringify from 'json-stable-stringify';
+import stringify from 'json-stable-stringify';
 import { DEFAULT_PRUNE_INTERVAL_MS, DEFAULT_TTL_MS, DEFAULT_CONCURRENCY_LIMIT } from './default';
 
 type CacheEntry<T> = {

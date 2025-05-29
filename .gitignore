@@ -141,6 +141,7 @@ dist
 # Generated files
 .docusaurus
 .cache-loader
+website/build
 
 # Misc
 .DS_Store

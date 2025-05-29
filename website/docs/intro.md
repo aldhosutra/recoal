@@ -2,46 +2,111 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# recoal
 
-Let's discover **Docusaurus in less than 5 minutes**.
+A lightweight and efficient JavaScript/TypeScript library for request coalescing — merge concurrent identical async calls into a single request to reduce load and improve performance.
 
-## Getting Started
+## Features
 
-Get started by **creating a new site**.
+- Coalesce concurrent or repeated calls for the same function and arguments
+- Supports both async and sync functions
+- Caches results for a configurable TTL
+- Periodically prunes expired cache entries (automatic memory management)
+- Manual cache invalidation and pruning
+- Custom key generator for advanced cache strategies
+- Concurrency limit per instance
+- ESM & CJS compatible
+- TypeScript-first, with full type safety
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+## Installation
 
-### What you'll need
-
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
-
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**.
-
-The classic template will automatically be added to your project after you run the command:
-
-```bash
-npm init docusaurus@latest my-website classic
+```sh
+npm install recoal
 ```
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+## Usage
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+### Global Instance (Simple)
 
-## Start your site
+```ts
+import { coalesce, isCoalesced, invalidate, clear, prune, setKeyGenerator } from 'recoal';
 
-Run the development server:
+// Async or sync function
+async function fetchUser(id) {
+	/* ... */
+}
+function add(a, b) {
+	return a + b;
+}
 
-```bash
-cd my-website
-npm run start
+// Coalesce requests
+const user = await coalesce(fetchUser, 123);
+const sum = await coalesce(add, 1, 2); // works with sync too!
+
+// Check if a request is in-flight or cached
+const active = isCoalesced(fetchUser, 123);
+
+// Invalidate cache for a specific call
+invalidate(fetchUser, 123);
+
+// Clear all cache and in-flight requests
+clear();
+
+// Manually prune expired cache entries (optional)
+prune();
+
+// Set a custom key generator (advanced)
+setKeyGenerator((functionName, ...args) => `${functionName}:${args.join('-')}`);
 ```
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
+### Custom Instance (Advanced)
 
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
+```ts
+import { RecoalInstance } from 'recoal';
 
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+const coalescer = new RecoalInstance(
+	60000, // prune interval (ms)
+	1000, // TTL (ms)
+	console, // custom logger
+	5, // max concurrency
+);
+
+await coalescer.coalesce(fetchUser, 123);
+coalescer.setKeyGenerator((functionName, ...args) => `${functionName}:${args.join('-')}`);
+```
+
+## API
+
+### Global Exports
+
+- `coalesce(fn, ...args)` — Coalesce and cache requests
+- `isCoalesced(fn, ...args)` — Check if a request is in-flight or cached
+- `invalidate(fn, ...args)` — Invalidate cache for a specific call
+- `clear()` — Clear all cache and in-flight requests
+- `prune()` — Manually prune expired cache entries
+- `setKeyGenerator(fn)` — Set a custom key generator
+
+### RecoalInstance
+
+- `new RecoalInstance(intervalMs?, ttlMs?, consoler?, maxConcurrency?)`
+- `.coalesce(fn, ...args)`
+- `.isCoalesced(fn, ...args)`
+- `.invalidate(fn, ...args)`
+- `.clear()`
+- `.prune()`
+- `.setKeyGenerator(fn)`
+
+## ESM & CJS Compatibility
+
+- ESM: `import { coalesce } from 'recoal'`
+- CJS: `const { coalesce } = require('recoal')`
+
+## License
+
+MIT
+
+## Links
+
+- [GitHub Repository](https://github.com/aldhosutra/recoal)
+- [Documentation](https://recoal.js.org)
+- [Report Issues](https://github.com/aldhosutra/recoal/issues)

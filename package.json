@@ -54,7 +54,7 @@
 	"bugs": {
 		"url": "https://github.com/aldhosutra/reqoal/issues"
 	},
-	"homepage": "https://github.com/aldhosutra/reqoal#readme",
+	"homepage": "https://reqoal.js.org",
 	"overrides": {
 		"glob": "10.4.5"
 	},

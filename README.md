@@ -1,4 +1,9 @@
+![Header](https://raw.githubusercontent.com/aldhosutra/recoal/HEAD/website/static/img/docusaurus-social-card.jpg)
+
 # recoal
+
+![Repo Size](https://img.shields.io/github/repo-size/aldhosutra/recoal)
+[![License: MIT](https://img.shields.io/github/license/aldhosutra/recoal?color=green)](https://opensource.org/license/mit)
 
 A lightweight and efficient JavaScript/TypeScript library for request coalescing — merge concurrent identical async calls into a single request to reduce load and improve performance.
 

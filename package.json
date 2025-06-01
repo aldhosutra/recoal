@@ -1,6 +1,6 @@
 {
 	"name": "reqoal",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A lightweight and efficient JavaScript library for request coalescing — merge concurrent identical async calls into a single request to reduce load and improve performance.",
 	"type": "module",
 	"main": "./dist/index.cjs",

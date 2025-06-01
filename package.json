@@ -1,5 +1,5 @@
 {
-	"name": "recoal",
+	"name": "reqoal",
 	"version": "1.0.0",
 	"description": "A lightweight and efficient JavaScript library for request coalescing — merge concurrent identical async calls into a single request to reduce load and improve performance.",
 	"type": "module",
@@ -30,7 +30,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/aldhosutra/recoal.git"
+		"url": "git+https://github.com/aldhosutra/reqoal.git"
 	},
 	"keywords": [
 		"request",
@@ -52,9 +52,9 @@
 	"author": "aldhosutra",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/aldhosutra/recoal/issues"
+		"url": "https://github.com/aldhosutra/reqoal/issues"
 	},
-	"homepage": "https://github.com/aldhosutra/recoal#readme",
+	"homepage": "https://github.com/aldhosutra/reqoal#readme",
 	"overrides": {
 		"glob": "10.4.5"
 	},

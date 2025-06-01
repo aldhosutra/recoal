@@ -2,12 +2,12 @@
 sidebar_position: 1
 ---
 
-![Header](https://raw.githubusercontent.com/aldhosutra/recoal/HEAD/website/static/img/docusaurus-social-card.jpg)
+![Header](https://raw.githubusercontent.com/aldhosutra/reqoal/HEAD/website/static/img/docusaurus-social-card.jpg)
 
-# recoal
+# reqoal
 
-![Repo Size](https://img.shields.io/github/repo-size/aldhosutra/recoal)
-[![License: MIT](https://img.shields.io/github/license/aldhosutra/recoal?color=green)](https://opensource.org/license/mit)
+![Repo Size](https://img.shields.io/github/repo-size/aldhosutra/reqoal)
+[![License: MIT](https://img.shields.io/github/license/aldhosutra/reqoal?color=green)](https://opensource.org/license/mit)
 
 A lightweight and efficient JavaScript/TypeScript library for request coalescing — merge concurrent identical async calls into a single request to reduce load and improve performance.
 
@@ -26,7 +26,7 @@ A lightweight and efficient JavaScript/TypeScript library for request coalescing
 ## Installation
 
 ```sh
-npm install recoal
+npm install reqoal
 ```
 
 ## Usage
@@ -34,7 +34,7 @@ npm install recoal
 ### Global Instance (Simple)
 
 ```ts
-import { coalesce, isCoalesced, invalidate, clear, prune, setKeyGenerator } from 'recoal';
+import { coalesce, isCoalesced, invalidate, clear, prune, setKeyGenerator } from 'reqoal';
 
 // Async or sync function
 async function fetchUser(id) {
@@ -67,9 +67,9 @@ setKeyGenerator((functionName, ...args) => `${functionName}:${args.join('-')}`);
 ### Custom Instance (Advanced)
 
 ```ts
-import { RecoalInstance } from 'recoal';
+import { ReqoalInstance } from 'reqoal';
 
-const coalescer = new RecoalInstance(
+const coalescer = new ReqoalInstance(
 	60000, // prune interval (ms)
 	1000, // TTL (ms)
 	console, // custom logger
@@ -91,9 +91,9 @@ coalescer.setKeyGenerator((functionName, ...args) => `${functionName}:${args.joi
 - `prune()` — Manually prune expired cache entries
 - `setKeyGenerator(fn)` — Set a custom key generator
 
-### RecoalInstance
+### ReqoalInstance
 
-- `new RecoalInstance(intervalMs?, ttlMs?, consoler?, maxConcurrency?)`
+- `new ReqoalInstance(intervalMs?, ttlMs?, consoler?, maxConcurrency?)`
 - `.coalesce(fn, ...args)`
 - `.isCoalesced(fn, ...args)`
 - `.invalidate(fn, ...args)`
@@ -103,8 +103,8 @@ coalescer.setKeyGenerator((functionName, ...args) => `${functionName}:${args.joi
 
 ## ESM & CJS Compatibility
 
-- ESM: `import { coalesce } from 'recoal'`
-- CJS: `const { coalesce } = require('recoal')`
+- ESM: `import { coalesce } from 'reqoal'`
+- CJS: `const { coalesce } = require('reqoal')`
 
 ## License
 
@@ -112,6 +112,6 @@ MIT
 
 ## Links
 
-- [GitHub Repository](https://github.com/aldhosutra/recoal)
-- [Documentation](https://recoal.js.org)
-- [Report Issues](https://github.com/aldhosutra/recoal/issues)
+- [GitHub Repository](https://github.com/aldhosutra/reqoal)
+- [Documentation](https://reqoal.js.org)
+- [Report Issues](https://github.com/aldhosutra/reqoal/issues)

@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-	title: 'recoal',
+	title: 'reqoal',
 	tagline:
 		'A lightweight and efficient JavaScript/TypeScript library for request coalescing. Merge concurrent identical async calls into a single request to reduce load and improve performance.',
 	favicon: 'img/favicon.ico',
@@ -16,7 +16,7 @@ const config: Config = {
 	},
 
 	// Set the production url of your site here
-	url: 'https://recoal.js.org',
+	url: 'https://reqoal.js.org',
 	// Set the /<baseUrl>/ pathname under which your site is served
 	// For GitHub pages deployment, it is often '/<projectName>/'
 	baseUrl: '/',
@@ -24,7 +24,7 @@ const config: Config = {
 	// GitHub pages deployment config.
 	// If you aren't using GitHub pages, you don't need these.
 	organizationName: 'aldhosutra', // Usually your GitHub org/user name.
-	projectName: 'recoal', // Usually your repo name.
+	projectName: 'reqoal', // Usually your repo name.
 
 	onBrokenLinks: 'throw',
 	onBrokenMarkdownLinks: 'warn',
@@ -45,7 +45,7 @@ const config: Config = {
 					sidebarPath: './sidebars.ts',
 					// Please change this to your repo.
 					// Remove this to remove the "edit this page" links.
-					editUrl: 'https://github.com/aldhosutra/recoal/',
+					editUrl: 'https://github.com/aldhosutra/reqoal/',
 				},
 				blog: {
 					showReadingTime: true,
@@ -55,7 +55,7 @@ const config: Config = {
 					},
 					// Please change this to your repo.
 					// Remove this to remove the "edit this page" links.
-					editUrl: 'https://github.com/aldhosutra/recoal/',
+					editUrl: 'https://github.com/aldhosutra/reqoal/',
 					// Useful options to enforce blogging best practices
 					onInlineTags: 'warn',
 					onInlineAuthors: 'warn',
@@ -72,9 +72,9 @@ const config: Config = {
 		// Replace with your project's social card
 		image: 'img/docusaurus-social-card.jpg',
 		navbar: {
-			title: 'recoal',
+			title: 'reqoal',
 			logo: {
-				alt: 'recoal Logo',
+				alt: 'reqoal Logo',
 				src: 'img/logo.svg',
 			},
 			items: [
@@ -121,11 +121,11 @@ const config: Config = {
 					items: [
 						{
 							label: 'npm',
-							href: 'https://npmjs.com/package/recoal',
+							href: 'https://npmjs.com/package/reqoal',
 						},
 						{
 							label: 'GitHub',
-							href: 'https://github.com/aldhosutra/recoal',
+							href: 'https://github.com/aldhosutra/reqoal',
 						},
 					],
 				},

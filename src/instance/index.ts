@@ -9,24 +9,24 @@ type CacheEntry<T> = {
 };
 
 /**
- * RecoalInstance - Request Coalescing and Caching Class
+ * ReqoalInstance - Request Coalescing and Caching Class
  *
  * Provides request coalescing and caching for async functions. Deduplicates concurrent requests for the same function and arguments, caches results for a configurable TTL, and periodically prunes expired cache entries.
  *
  * Usage:
  *
- *   import { RecoalInstance } from 'recoal';
- *   const coalescer = new RecoalInstance();
+ *   import { ReqoalInstance } from 'reqoal';
+ *   const coalescer = new ReqoalInstance();
  *   const result = await coalescer.fetch(myAsyncFn, arg1, arg2);
  *   const isActive = coalescer.isCoalesced(myAsyncFn, arg1, arg2);
  *
- * @class RecoalInstance
+ * @class ReqoalInstance
  * @constructor
  * @param {number} [intervalMs=DEFAULT_PRUNE_INTERVAL_MS] - Interval (ms) for pruning expired cache entries.
  * @param {number} [ttlMs=DEFAULT_TTL_MS] - Time-to-live (ms) for cached results.
  * @param {Console} [consoler=console] - Optional custom console for logging.
  */
-export class RecoalInstance {
+export class ReqoalInstance {
 	private _pruneIntervalMs: number = DEFAULT_PRUNE_INTERVAL_MS;
 	private _ttlMs: number = DEFAULT_TTL_MS;
 	private _maxConcurrency: number = DEFAULT_CONCURRENCY_LIMIT;
@@ -38,7 +38,7 @@ export class RecoalInstance {
 	private _customKeyGen?: (functionName: string, ...args: unknown[]) => string;
 
 	/**
-	 * Create a new RecoalInstance.
+	 * Create a new ReqoalInstance.
 	 * @param intervalMs Interval (ms) for pruning expired cache entries.
 	 * @param ttlMs Time-to-live (ms) for cached results.
 	 * @param consoler Optional custom console for logging.

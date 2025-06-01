@@ -31,7 +31,7 @@ export default function Home(): ReactNode {
 	// const { siteConfig } = useDocusaurusContext();
 	return (
 		<Layout
-			title={`recoal - JavaScript/TypeScript Request Coalescing and Caching`}
+			title={`reqoal - JavaScript/TypeScript Request Coalescing`}
 			description="A lightweight and efficient JavaScript/TypeScript library for request coalescing — merge concurrent identical async calls into a single request to reduce load and improve performance."
 		>
 			<HomepageHeader />

@@ -85,7 +85,7 @@ const config: Config = {
 					label: 'Getting Started',
 				},
 				{
-					href: 'https://github.com/facebook/docusaurus',
+					href: 'https://github.com/aldhosutra/reqoal',
 					label: 'GitHub',
 					position: 'right',
 				},
